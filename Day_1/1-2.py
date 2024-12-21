@@ -1,6 +1,6 @@
 # 400만 이하의 피보나치 수열 중 짝수의 합을 구하라
-fib = []
-even_fib = []
+# fib = []
+# even_fib = []
 sum_even_fib = 0
 
 def func(n):
@@ -16,7 +16,7 @@ while func(i) <= 4000000:
     i = i+1
     fib.append(func(i))
     if func(i) % 2 == 0:
-        sum_even_fib += func(i)
+        # sum_even_fib += func(i)
         even_fib.append(func(i))
 
 
@@ -32,6 +32,6 @@ while func(i) <= 4000000:
 #         sum_even_fib += y
 
         
-print(fib)
-print(even_fib)
+# print(fib)
+# print(even_fib)
 print(sum_even_fib)
