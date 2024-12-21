@@ -1,1 +1,2 @@
-This repository is for practice algorithm
+# Daily commit project : Daily-Algorithm
+i'm gonna commit algorithm for daily
