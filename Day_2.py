@@ -66,6 +66,6 @@ def factorize2(n):
         return n
     
     print(factors)
-    return factor-1
+    return factor - 1
 
-print(factorize2(2147483647))
+print(factorize2(600851475143))
