@@ -15,7 +15,7 @@ def isPrime (n):
     return True
 """
 
-# 유클리드 알고리즘을 이용한 소수인지 확인하는 함수.
+# 약수의 성질을 이용해 소수인지 확인하는 함수.
 def isPrime(n):
 	i = 2
 	if n <= 1: 
