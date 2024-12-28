@@ -24,7 +24,7 @@
 
 # Find the thirteen adjacent digits in the 1000-digit number that have the greatest product. What is the value of this product?
 """
-# 1000자리 숫자에서 연속하는 13자리의 숫자를 곱한 값중 가장 큰 값을 구하는 문제.
+# 1000자리 숫자에서 연속하는 13자리의 숫자를 곱한 값 중 가장 큰 값을 구하는 문제.
 
 # 1. 우선 num을 list로 해체한다.
 # 2. for 문을 이용해서 연속하는 숫자를 n개씩 출력해 곱해준다.
