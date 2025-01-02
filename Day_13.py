@@ -31,7 +31,7 @@ NOTE: Once the chain starts the terms are allowed to go above one million.
 #         else:
 #             n = 3*n + 1
 #         count += 1
-#     collatz.append((count, num)); # sort()했을 때 count가 가장 큰 값이 제일 뒤로 갈 수 있게
+#     collatz.append((count, num)) # sort()했을 때 count가 가장 큰 값이 제일 뒤로 갈 수 있게
     
 # print(sorted(collatz)[-1])
 
