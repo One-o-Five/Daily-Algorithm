@@ -2,38 +2,44 @@
 
 # 과잉수 두 개의 합으로 나타낼 수 없는 모든 양의 정수의 합을 구하는 문제이다.
 
+# 1. n의 진약수의 합을 계산해주는 함수를 작성
+# 2. n 이하의 모든 과잉수를 찾는 함수를 작성
+# 3. 위의 2가지 함수를 활용해 답을 구하는 함수를 작성.
+
 # n의 진약수의 합을 계산
-def get_divisors_sum(n):
-    divisors = [1]
-    for i in range(2, int(n ** 0.5) + 1):
+def proper_div_sum(n):
+    divisors = set()
+    for i in range(1, int(n**0.5) + 1):
         if n % i == 0:
-            divisors.append(i)
-            if i != n // i:
-                divisors.append(n // i)
+            divisors.add(i)
+            if i != n // i:  # 제곱근 중복 제거
+                divisors.add(n // i)
+    divisors.discard(n)
     return sum(divisors)
 
-# limit 이하의 모든 과잉수를 찾기
-def find_abundant_numbers(limit):
-    return [n for n in range(1, limit + 1) if get_divisors_sum(n) > n]
+# n 이하의 모든 과잉수를 찾기
+def find_abundant_numbers(n):
+    numbers = []
+    for i in range (1, n + 1):
+        if proper_div_sum(i) > i:
+            numbers.append(i)
+    return numbers
 
-def non_abundant_sum(limit):
-    abundant_numbers = find_abundant_numbers(limit)
-    abundant_sums = set()
+# n 이하의 과잉수 2개의 합으로 나타낼 수 없는 모든 양의 정수의 합.
+def solution(n):
+    abundant_numbers = find_abundant_numbers(n)
+    abundants_sum = set()
+    all_numbers = set(range(1, n + 1))
     
     # 과잉수 두 개의 합으로 나타낼 수 있는 수를 계산
     for i in range(len(abundant_numbers)):
         for j in range(i, len(abundant_numbers)):
             abundant_sum = abundant_numbers[i] + abundant_numbers[j]
-            if abundant_sum <= limit:
-                abundant_sums.add(abundant_sum)
-            else:
-                break
+            if abundant_sum <= n:
+                abundants_sum.add(abundant_sum)
 
     # 과잉수 두 개의 합으로 나타낼 수 없는 수의 합 계산
-    all_numbers = set(range(1, limit + 1))
-    non_abundant_sums = all_numbers - abundant_sums
-    return sum(non_abundant_sums)
+    non_abundants_sum = all_numbers - abundants_sum
+    return sum(non_abundants_sum)
 
-# 결과 출력
-result = non_abundant_sum(28123)
-print(result)
+print(solution(28123))
