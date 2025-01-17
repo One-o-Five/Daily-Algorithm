@@ -27,8 +27,8 @@ print(solution(1001))
 
 # def solution(n):	
 #     diagonals_sum = 1
-#     for i in range (3, n  + 1, 2):
-#         result+=4*i**2 - 6*(i-1)
+#     for i in range (3, n + 1, 2):
+#         result+=4*i**2 - 6*(i - 1)
 #     return diagonals_sum
 
 # print(solution(1001))
