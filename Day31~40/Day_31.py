@@ -24,8 +24,8 @@ N은 50보다 작거나 같은 자연수이고, M은 N보다 작거나 같은 �
 
 from collections import deque
 
-def calculate_minimum_operations(n, m, targets):
-    queue = deque(range(1, n + 1))
+def solution(N, M, targets):
+    queue = deque(range(1, N + 1))
     total_operations = 0
     
     for target in targets:
@@ -36,15 +36,17 @@ def calculate_minimum_operations(n, m, targets):
         right_moves = len(queue) - index
         total_operations += min(left_moves, right_moves)
         # 큐를 해당 방향으로 이동 후 첫 번째 원소 제거
-        queue.rotate(-left_moves if left_moves <= right_moves else right_moves)
+        if left_moves <= right_moves:
+            queue.rotate(-left_moves)
+        else:
+            queue.rotate(right_moves)
         queue.popleft()
     
     return total_operations
 
 # 입력 처리
-n, m = map(int, input().split())
+N, M = map(int, input().split())
 targets = list(map(int, input().split()))
 
 # 결과 출력
-result = calculate_minimum_operations(n, m, targets)
-print(result)
+print(solution(N, M, targets))
