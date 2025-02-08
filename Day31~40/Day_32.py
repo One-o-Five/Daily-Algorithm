@@ -27,60 +27,29 @@ P = [10, 30, 20], A = 7, M = 55인 경우를 생각해보자. 이 경우 h(P) = 
 주어진 해시값을 갖는 비밀번호의 개수를 출력한다. 출력하는 값이 너무 커질 수 있으므로, 이것을 1,000,000,007 ( = 10^9 + 7)로 나눈 나머지를 출력한다.
 '''
 
+# 주어진 수식에서 P_0가 될 수 있는 범위는 0~M-1이다.
+# 따라서 P_0을 제외한 수가 고정되어있다고 할 경우 주어진 해시값을 만족하는 비밀번호는 1개이다.
+# P_0을 제외한 수의 조합은 M**(N-1)개이다.
+# M**(N-1)개의 조합에서 조합 당 하나의 숫자만 주어진 해시값을 만족한다.
+# 따라서 어떤 해시값이 주어지더라도, M**(N-1)을 리턴하기만 하면 된다.
+# 단 숫자가 너무 커지면 계산이 오래 걸리니 반복문을 통해 항상 나머지를 계산해주자.
+
+import sys
 
 MOD = 1_000_000_007
 
-def mod_exp(base, exp, mod):
-    """빠른 거듭제곱 계산 (base^exp % mod)"""
-    result = 1
-    while exp > 0:
-        if exp % 2 == 1:
-            result = (result * base) % mod
-        base = (base * base) % mod
-        exp //= 2
-    return result
-
 def count_passwords(N, M, A, H):
-    # A^i % M의 주기 탐색
-    mod_powers = []
-    current = 1
-    seen = {}
+    answer = 1
     
-    for i in range(M):
-        if current in seen:
-            break
-        mod_powers.append(current)
-        seen[current] = i
-        current = (current * A) % M
-    
-    # 주기 정보
-    cycle_start = seen[current]
-    cycle_length = len(mod_powers) - cycle_start
+    for i in range(N-1):
+        answer *= M
+        answer %= MOD # 오버플로우 방지를 위해 나머지를 미리 계산
+        
+    return answer
 
-    # A^i % M 계산
-    def get_mod_power(i):
-        if i < cycle_start:
-            return mod_powers[i]
-        cycle_index = (i - cycle_start) % cycle_length
-        return mod_powers[cycle_start + cycle_index]
-    
-    # 가능한 해시값 계산
-    count = [0] * M
-    count[0] = 1  # 초기값
+# 입력 처리
+N, M, A = map(int, sys.stdin.readline().split())
+H = int(sys.stdin.readline().strip())
 
-    for i in range(N):
-        new_count = [0] * M
-        for j in range(M):
-            for k in range(M):
-                new_hash = (j + k * get_mod_power(i)) % M
-                new_count[new_hash] = (new_count[new_hash] + count[j]) % MOD
-        count = new_count
-    
-    return count[H]
-
-# 입력
-N, M, A = map(int, input().split())
-H = int(input())
-
-# 출력
+# 결과 출력
 print(count_passwords(N, M, A, H))
